@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Coloring Book Page Creator</title>
+        <link rel="icon" href="data:,">
+        <link rel="stylesheet" href="./style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <main class="container">
+            
+            <header class="header">
+                <h1>AI Coloring Book Page Creator</h1>
+                <p>Generate custom free coloring book pages by choosing a theme and style.</p>
+            </header>
+
+            <div id="creatorCard" class="creator-card">
+                
+                <div class="input-group">
+                    <label for="promptInput">What would you like to color?</label>
+                    <p class="input-hint">Describe the characters, objects or other content you'd like to see on the page.</p>
+                    <input type="text" id="promptInput" placeholder="E.g., &quot;Dinosaurs in Space&quot;" autocomplete="off">
+                </div>
+
+                <div class="style-section">
+                    <label>Select a Page Style:</label>
+                    <div class="styles-grid">
+
+                        <!-- Style Option 1-->
+                        <div class="style-option selected" data-style="simple-outline" data-title="Simple Outline" data-desc="Perfect for kids and adults! Clean, bold outlines with minimal clutter for easy coloring.">
+                            <div class="image-container">
+                                <img src="./images/style-img1.jpg" alt="Simple Outline Style">
+                            </div>
+                            <div class="style-header-row">
+                                <span class="style-name">Simple Outline</span>
+                                <button class="info-btn" type="button" aria-label="More info about Simple Outline style">ⓘ</button>
+                            </div>
+                        </div>
+
+                        <!-- Style Option 2 -->
+                        <div class="style-option" data-style="realistic" data-title="Realistic" data-desc="Detailed and accurate. Highly intricate line work capturing fine textures and proportions.">
+                            <div class="image-container">
+                                <img src="./images/style-img2.jpg" alt="Realistic Style">
+                            </div>
+                            <div class="style-header-row">
+                                <span class="style-name">Realistic</span>
+                                <button class="info-btn" type="button" aria-label="More info about Realistic style">ⓘ</button>
+                            </div>
+                        </div>
+
+                        <!-- Style Option 3 -->
+                        <div class="style-option" data-style="geometric" data-title="Geometric" data-desc="Patterns and mandalas. Features complex symmetry and structured, repeating shapes.">
+                            <div class="image-container">
+                                <img src="./images/style-img3.jpg" alt="Geometric Style">
+                            </div>
+                            <div class="style-header-row">
+                                <span class="style-name">Geometric</span>
+                                <button class="info-btn" type="button" aria-label="More info about Geometric style">ⓘ</button>
+                            </div>
+                        </div>
+
+                        <!-- Style Option 4 -->
+                        <div class="style-option" data-style="greyscale" data-title="Greyscale" data-desc="Pre-shaded images. Adds depth with subtle gradients and grey tones for advanced shading.">
+                            <div class="image-container">
+                                <img src="./images/style-img4.jpg" alt="Grayscale Style">
+                            </div>
+                            <div class="style-header-row">
+                                <span class="style-name">Greyscale</span>
+                                <button class="info-btn" type="button" aria-label="More info about Greyscale style">ⓘ</button>
+                            </div>
+                        </div>
+
+                        <!-- Style Option 5 -->
+                        <div class="style-option" data-style="doodle" data-title="Doodle" data-desc="Playful chaos. Whimsical hadn-drawn style packed with fun and quirky characters.">
+                            <div class="image-container">
+                                <img src="./images/style-img5.jpg" alt="Doodle Style">
+                            </div>
+                            <div class="style-header-row">
+                                <span class="style-name">Doodle</span>
+                                <button class="info-btn" type="button" aria-label="More info about Doodle style">ⓘ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button id="generateBtn" class="btn primary-btn">Generate Coloring Pages</button>
+            </div>
+
+            <!-- Style Info Modal Popup -->
+            <div id="infoModal" class="modal-overlay">
+                <div class="modal-content">
+                    <button id="closeModal" class="close-btn" aria-label="Close popup">&times;</button>
+                    <div class="modal-image-container">
+                        <img id="modalImg" src="" alt="Style preview large">
+                    </div>
+                    <div class="modal-text-content">
+                        <h3 id="modalTitle">Style Title</h3>
+                        <p id="modalDesc">Style description.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Page -->
+            <div id="resultsScreen" class="results-screen" style="display: none;">
+                <div class="results-header">
+                    <h2>Your Coloring Book Pages</h2>
+                    <div class="results-actions">
+                        <button id="downloadPdfBtn" class="btn primary-btn">Download PDF</button>
+                        <button id="startOverBtn" class="btn secondary-btn">Start Over</button>
+                    </div>
+                </div>
+                <div id="resultsGrid" class="results-grid"></div>
+            </div>
+
+            <div id="loadingScreen" class="creator-card loading-card" style="display: none;">
+                <div class="loading-content">
+                    <h2>Creating Your Coloring Pages...</h2>
+                    <p id="loadingStatusText" class="input-hint">Sending prompts to AI service, please be patient...</p>
+                    <div class="progress-bar-container">
+                        <div id="progressBarFill" class="progress-bar-fill"></div>
+                    </div>
+                    <div id="progressPercentage" class="progress-percentage">0%</div>
+                </div>
+            </div>
+        </main>
+       
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="./script.js"></script>
+    </body>
+</html>
