@@ -22,10 +22,14 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 3. **Configure Environment Variables:**
     - Duplicate the `.env.example` file and rename the copy to `.env`.
     - Add the test API key given in the assignment comments to the `.env` file.
+      ```
+      OPENAI_API_KEY=test-api-key-here
+      PORT=3000
+      ```
 
 4. **Run the Application:**
     ```bash
-    node server.js
+    npm start
     ```
 
 5. **Open in Browser:**
